@@ -42,11 +42,16 @@ class TaskRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findPaginatedTasks(int $page, int $limit): Paginator
+    public function findPaginatedTasks(int $page, int $limit, int $status = 0): Paginator
     {
         $queryBuilder = $this->createQueryBuilder('a')
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit);
+
+        if ($status){
+            $queryBuilder->andWhere('a.status = :status')
+                ->setParameter('status', $status);
+        }
 
         return new Paginator($queryBuilder->getQuery());
     }

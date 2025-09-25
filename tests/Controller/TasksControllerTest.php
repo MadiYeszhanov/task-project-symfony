@@ -9,7 +9,7 @@ final class TasksControllerTest extends WebTestCase
     public function testIndex(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/tasks');
+        $client->request('GET', 'api/tasks');
 
         self::assertResponseIsSuccessful();
     }

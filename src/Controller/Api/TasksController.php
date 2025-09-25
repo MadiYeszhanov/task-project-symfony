@@ -26,8 +26,9 @@ final class TasksController extends AbstractController
     public function index(Request $request, TaskRepository $taskRepository): JsonResponse
     {
         $page = $request->query->getInt('page', 1);
+        $status = $request->query->getInt('status', 0);
 
-        $paginator = $taskRepository->findPaginatedTasks($page, self::LIMIT);
+        $paginator = $taskRepository->findPaginatedTasks($page, self::LIMIT, $status);
 
         $data = [];
         /* @var $task Task */
